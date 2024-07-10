@@ -19,7 +19,7 @@ public class ParticipantService {
 
         //save all participants
         this.repository.saveAll(participants);
-        System.out.println(participants.get(0).getId());
+        
     }
 
     public ParticipantCreateResponse registerParticipantToEvent(String email, Trip trip){
