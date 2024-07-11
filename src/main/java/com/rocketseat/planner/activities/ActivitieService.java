@@ -1,5 +1,8 @@
 package com.rocketseat.planner.activities;
 
+import java.util.List;
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,5 +22,9 @@ public class ActivitieService {
         this.repository.save(newActivitie);
 
         return new ActivitieResponse(newActivitie.getId());
+    }
+
+    public List<ActivitieData> getAllActivitiesFromId(UUID tripId){
+        return this.repository.findByTripId(tripId).stream().map(activitie -> new ActivitieData(activitie.getId(), activitie.getTittle(), activitie.getOccurs_at())).toList();
     }
 }

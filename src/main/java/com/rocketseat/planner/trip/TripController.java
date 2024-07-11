@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.rocketseat.planner.activities.ActivitieData;
 import com.rocketseat.planner.activities.ActivitieRequestPayload;
 import com.rocketseat.planner.activities.ActivitieResponse;
 import com.rocketseat.planner.activities.ActivitieService;
@@ -140,5 +141,13 @@ public class TripController {
         }
 
         return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/{id}/activity")
+    public ResponseEntity<List<ActivitieData>> getAllActivities(@PathVariable UUID id){
+        List<ActivitieData> activityDataList = this.activitieService.getAllActivitiesFromId(id);
+        
+        return ResponseEntity.ok(activityDataList);
     }
 }
