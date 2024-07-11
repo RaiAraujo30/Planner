@@ -1,6 +1,5 @@
 package com.rocketseat.planner.link;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
 import jakarta.persistence.Table;
@@ -41,4 +40,10 @@ public class Link {
     @JoinColumn(name = "trip_id", nullable = false)
     private Trip trip;
 
+
+    public Link(String tittle, String url, Trip trip) {
+        this.tittle = tittle;
+        this.url = url;
+        this.trip = trip;
+    }
 }
