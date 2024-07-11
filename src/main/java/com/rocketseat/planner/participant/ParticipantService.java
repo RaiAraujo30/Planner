@@ -36,5 +36,6 @@ public class ParticipantService {
         return this.repository.findByTripId(tripId).stream().map(Participant -> new ParticipantData(Participant.getId(), Participant.getName(), Participant.getEmail(), Participant.getIsConfirmed())).toList(); 
     }
 
+    
 
 }

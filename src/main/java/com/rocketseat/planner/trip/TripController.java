@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.rocketseat.planner.activities.ActivitieRequestPayload;
+import com.rocketseat.planner.activities.ActivitieResponse;
+import com.rocketseat.planner.activities.ActivitieService;
 import com.rocketseat.planner.participant.ParticipantCreateResponse;
 import com.rocketseat.planner.participant.ParticipantData;
 import com.rocketseat.planner.participant.ParticipantRequestPayload;
@@ -30,6 +32,9 @@ public class TripController {
 
     @Autowired
     private ParticipantService participantService;
+
+    @Autowired
+    private ActivitieService activitieService;
 
     @Autowired
     private TripRepository  repository ;
@@ -117,5 +122,23 @@ public class TripController {
         List<ParticipantData> participanntsList = this.participantService.getAllParticipantsFromEvent(id);
         
         return ResponseEntity.ok(participanntsList);
+    }
+
+ 
+    @PostMapping("{id}/activity")
+    public ResponseEntity<ActivitieResponse> registerActivity(@PathVariable UUID id, @RequestBody ActivitieRequestPayload payload){
+        Optional<Trip> trip = this.repository.findById(id);
+
+        if(trip.isPresent()){
+            Trip tripToUpdate = trip.get();
+
+            
+           ActivitieResponse activitieResponse = this.activitieService.registerActivitie(payload, tripToUpdate);
+           
+            return ResponseEntity.ok(activitieResponse);
+        
+        }
+
+        return ResponseEntity.notFound().build();
     }
 }
